@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Logback configuration
+  ============================================================
+  Outputs coloured, human-readable logs to the console and
+  saves the full run log to target/logs/test-run.log.
+  ============================================================
+-->
+<configuration>
+
+    <!-- ===== Console appender ===== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) – %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ===== Rolling file appender ===== -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>target/logs/test-run.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Keep 7 days of history -->
+            <fileNamePattern>target/logs/test-run.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} – %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ===== Root logger ===== -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+    <!-- Quieten noisy third-party loggers -->
+    <logger name="com.microsoft.playwright" level="WARN"/>
+
+</configuration>
