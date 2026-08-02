@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+  Smoke Suite
+  ============================================================
+  Runs the critical path tests that verify core navigation and
+  functionality are intact after every deployment.
+
+  CLI usage:
+      mvn test -Dsuite=src/test/resources/testng/smoke-suite.xml
+               -Dbrowser=chromium
+               -Dheadless=true
+               -Denv=prod
+  ============================================================
+-->
+<suite name="Google Cloud – Smoke Suite"
+       verbose="1"
+       parallel="classes"
+       thread-count="2">
+
+    <listeners>
+        <!-- Allure TestNG listener for rich reporting -->
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <test name="Navigation Tests">
+        <classes>
+            <class name="com.google.cloud.tests.NavigationTest"/>
+        </classes>
+    </test>
+
+</suite>
